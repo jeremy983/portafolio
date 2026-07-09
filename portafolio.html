@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jerimy Joaquín Cáceres Acosta — Desarrollador Web</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #f1ede4;
+    --paper-line: #cdc5ac;
+    --ink: #1f2a24;
+    --ink-soft: #4a544c;
+    --ledger: #2f5233;
+    --ledger-deep: #203c26;
+    --debit: #a63d40;
+    --brass: #a8874f;
+    --card: #e8e2d2;
+    --radius: 2px;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+    background-image:
+      repeating-linear-gradient(var(--paper) 0px, var(--paper) 38px, var(--paper-line) 39px, var(--paper) 40px);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important; }
+  }
+
+  a{ color:inherit; text-decoration:none; }
+  ::selection{ background:var(--ledger); color:var(--paper); }
+
+  :focus-visible{
+    outline:2px solid var(--debit);
+    outline-offset:3px;
+  }
+
+  .wrap{ max-width:1080px; margin:0 auto; padding:0 32px; }
+
+  /* ---------- NAV ---------- */
+  header.site{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    backdrop-filter:blur(6px);
+    background:rgba(241,237,228,0.88);
+    border-bottom:1px solid var(--paper-line);
+  }
+  header.site .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:72px;
+  }
+  .brand{
+    display:flex; align-items:center; gap:12px;
+    font-family:'IBM Plex Mono', monospace;
+    font-weight:600; letter-spacing:0.02em;
+    font-size:15px;
+  }
+  .seal{
+    width:34px; height:34px; border-radius:50%;
+    border:1.5px solid var(--ledger);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces', serif; font-weight:600; font-size:13px;
+    color:var(--ledger);
+    position:relative;
+  }
+  .seal::after{
+    content:'';
+    position:absolute; inset:3px;
+    border:1px dashed var(--brass);
+    border-radius:50%;
+  }
+  nav.links{ display:flex; gap:32px; font-size:14px; }
+  nav.links a{
+    position:relative; color:var(--ink-soft);
+    transition:color 0.2s ease;
+  }
+  nav.links a::after{
+    content:''; position:absolute; left:0; bottom:-4px;
+    width:0; height:1px; background:var(--debit);
+    transition:width 0.25s ease;
+  }
+  nav.links a:hover{ color:var(--ink); }
+  nav.links a:hover::after{ width:100%; }
+  .nav-toggle{ display:none; }
+
+  /* ---------- HERO ---------- */
+  section.hero{
+    padding:168px 0 96px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.3fr 1fr;
+    gap:56px;
+    align-items:start;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px; letter-spacing:0.16em; text-transform:uppercase;
+    color:var(--ledger); font-weight:600;
+    display:flex; align-items:center; gap:10px;
+    margin-bottom:22px;
+  }
+  .eyebrow::before{
+    content:''; width:24px; height:1px; background:var(--debit);
+  }
+  h1.name{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:clamp(40px, 6vw, 68px);
+    line-height:1.04;
+    letter-spacing:-0.01em;
+    max-width:11ch;
+  }
+  .role{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:16px;
+    color:var(--ledger-deep);
+    margin-top:20px;
+    padding-left:2px;
+    border-left:2px solid var(--brass);
+    padding-left:12px;
+  }
+  .tagline{
+    margin-top:26px;
+    max-width:46ch;
+    font-size:16.5px;
+    color:var(--ink-soft);
+  }
+  .tagline em{
+    font-style:normal;
+    color:var(--debit);
+    font-weight:600;
+  }
+  .hero-actions{
+    margin-top:38px;
+    display:flex; gap:16px; flex-wrap:wrap;
+  }
+  .btn{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13.5px;
+    padding:13px 22px;
+    border-radius:var(--radius);
+    display:inline-flex; align-items:center; gap:8px;
+    transition:transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .btn-primary{
+    background:var(--ledger);
+    color:var(--paper);
+  }
+  .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 6px 0 var(--ledger-deep); }
+  .btn-ghost{
+    border:1px solid var(--ink);
+  }
+  .btn-ghost:hover{ transform:translateY(-2px); box-shadow:0 6px 0 var(--paper-line); }
+
+  /* ledger card in hero */
+  .ledger-card{
+    background:var(--card);
+    border:1px solid var(--paper-line);
+    border-radius:var(--radius);
+    box-shadow:6px 6px 0 rgba(32,60,38,0.12);
+  }
+  .ledger-card .lc-head{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:14px 18px;
+    border-bottom:1px solid var(--paper-line);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+  .lc-dots{ display:flex; gap:6px; }
+  .lc-dots span{ width:7px; height:7px; border-radius:50%; background:var(--paper-line); }
+  .lc-body{ padding:20px 18px; font-family:'IBM Plex Mono', monospace; font-size:13.5px; }
+  .lc-row{
+    display:flex; justify-content:space-between;
+    padding:9px 0; border-bottom:1px dashed var(--paper-line);
+    gap:10px;
+  }
+  .lc-row:last-child{ border-bottom:none; }
+  .lc-row .k{ color:var(--ink-soft); }
+  .lc-row .v{ color:var(--ink); font-weight:500; text-align:right; }
+  .cursor{
+    display:inline-block; width:8px; height:14px; background:var(--debit);
+    margin-left:2px; animation:blink 1s steps(1) infinite; vertical-align:-2px;
+  }
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{ padding:96px 0; position:relative; }
+  .section-head{
+    display:flex; align-items:baseline; gap:18px;
+    margin-bottom:48px;
+  }
+  .section-num{
+    font-family:'IBM Plex Mono', monospace;
+    color:var(--brass); font-size:13px; font-weight:600;
+  }
+  h2.section-title{
+    font-family:'Fraunces', serif; font-weight:500;
+    font-size:clamp(28px, 3.4vw, 38px);
+  }
+  .section-rule{
+    flex:1; height:1px; background:var(--paper-line);
+    align-self:center;
+  }
+
+  /* ---------- SOBRE MI ---------- */
+  .about-grid{
+    display:grid; grid-template-columns:0.9fr 1.1fr; gap:60px; align-items:start;
+  }
+  .about-text p{ font-size:17px; color:var(--ink-soft); margin-bottom:18px; max-width:52ch; }
+  .about-text strong{ color:var(--ink); }
+  .margin-note{
+    font-family:'Fraunces', serif; font-style:italic;
+    color:var(--debit); font-size:15px;
+    border-left:2px solid var(--debit);
+    padding-left:14px; margin-top:24px;
+    max-width:34ch;
+  }
+  .stamp-figure{
+    display:flex; align-items:center; justify-content:center;
+    aspect-ratio:1/1;
+    border:1.5px solid var(--ledger);
+    border-radius:50%;
+    position:relative;
+    max-width:230px; margin:0 auto;
+  }
+  .stamp-figure::before{
+    content:''; position:absolute; inset:10px;
+    border:1px dashed var(--brass); border-radius:50%;
+  }
+  .stamp-figure .stamp-text{
+    font-family:'Fraunces', serif; text-align:center; color:var(--ledger);
+  }
+  .stamp-figure .stamp-text b{ display:block; font-size:34px; font-weight:600; }
+  .stamp-figure .stamp-text span{
+    display:block; font-family:'IBM Plex Mono', monospace; font-size:10px;
+    letter-spacing:0.14em; text-transform:uppercase; margin-top:6px; color:var(--ink-soft);
+  }
+
+  /* ---------- HABILIDADES ---------- */
+  .ledger-table{
+    display:grid; grid-template-columns:1fr 1fr; gap:0;
+    border:1px solid var(--paper-line);
+    background:var(--card);
+  }
+  .ledger-col{ padding:0; }
+  .ledger-col + .ledger-col{ border-left:1px solid var(--paper-line); }
+  .ledger-col-head{
+    padding:16px 22px;
+    font-family:'IBM Plex Mono', monospace; font-size:12px;
+    letter-spacing:0.1em; text-transform:uppercase; font-weight:600;
+    color:var(--paper); background:var(--ledger);
+    display:flex; justify-content:space-between;
+  }
+  .ledger-col:nth-child(2) .ledger-col-head{ background:var(--ledger-deep); }
+  .skill-row{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:14px 22px; border-top:1px dashed var(--paper-line);
+    font-size:14.5px;
+  }
+  .skill-row .bar{
+    width:110px; height:5px; background:var(--paper-line); position:relative; overflow:hidden;
+  }
+  .skill-row .bar i{
+    position:absolute; left:0; top:0; bottom:0; background:var(--debit); width:0%;
+    transition:width 1s ease;
+  }
+  .skill-row.dev .bar i{ background:var(--ledger); }
+
+  /* ---------- PROYECTOS ---------- */
+  .projects-grid{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:24px;
+  }
+  .project-card{
+    background:var(--card);
+    border:1px solid var(--paper-line);
+    border-radius:var(--radius);
+    padding:26px 24px;
+    display:flex; flex-direction:column; gap:14px;
+    transition:transform 0.25s ease, box-shadow 0.25s ease;
+    position:relative;
+  }
+  .project-card:hover{
+    transform:translateY(-5px);
+    box-shadow:8px 10px 0 rgba(32,60,38,0.14);
+  }
+  .project-index{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--brass); font-weight:600;
+  }
+  .project-card h3{
+    font-family:'Fraunces', serif; font-weight:500; font-size:21px;
+  }
+  .project-card p{ color:var(--ink-soft); font-size:14.5px; flex:1; }
+  .project-link{
+    font-family:'IBM Plex Mono', monospace; font-size:13px;
+    display:inline-flex; align-items:center; gap:6px; color:var(--ledger);
+    border-top:1px dashed var(--paper-line); padding-top:12px;
+  }
+  .project-link:hover{ color:var(--debit); }
+  .project-link .arrow{ transition:transform 0.2s ease; }
+  .project-link:hover .arrow{ transform:translateX(4px); }
+
+  /* ---------- CONTACTO ---------- */
+  .contact-card{
+    background:var(--ledger-deep);
+    color:var(--paper);
+    border-radius:var(--radius);
+    padding:56px 48px;
+    display:grid; grid-template-columns:1.2fr 1fr; gap:40px; align-items:center;
+    position:relative; overflow:hidden;
+  }
+  .contact-card::before{
+    content:'';
+    position:absolute; inset:0;
+    background-image:repeating-linear-gradient(rgba(241,237,228,0.04) 0px, rgba(241,237,228,0.04) 1px, transparent 1px, transparent 40px);
+    pointer-events:none;
+  }
+  .contact-card h2{
+    font-family:'Fraunces', serif; font-weight:500; font-size:clamp(26px,3vw,34px);
+    max-width:14ch;
+  }
+  .contact-card p{ color:#cfd8cf; margin-top:14px; max-width:38ch; }
+  .contact-list{ display:flex; flex-direction:column; gap:14px; }
+  .contact-item{
+    display:flex; justify-content:space-between; align-items:center;
+    font-family:'IBM Plex Mono', monospace; font-size:14px;
+    padding-bottom:12px; border-bottom:1px dashed rgba(241,237,228,0.25);
+  }
+  .contact-item span.k{ color:#9fb09f; }
+  .contact-item a{ display:flex; align-items:center; gap:6px; }
+  .contact-item a:hover{ color:var(--brass); }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    padding:40px 0 60px;
+    display:flex; justify-content:space-between; align-items:center;
+    font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:var(--ink-soft);
+    flex-wrap:wrap; gap:12px;
+  }
+
+  /* ---------- REVEAL ---------- */
+  .reveal{ opacity:0; transform:translateY(18px); transition:opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 860px){
+    .hero-grid{ grid-template-columns:1fr; }
+    .about-grid{ grid-template-columns:1fr; }
+    .stamp-figure{ margin-top:20px; }
+    .projects-grid{ grid-template-columns:1fr; }
+    .ledger-table{ grid-template-columns:1fr; }
+    .ledger-col + .ledger-col{ border-left:none; border-top:1px solid var(--paper-line); }
+    .contact-card{ grid-template-columns:1fr; padding:38px 26px; }
+    nav.links{
+      position:fixed; top:72px; left:0; right:0;
+      background:var(--paper);
+      flex-direction:column; padding:20px 32px; gap:18px;
+      border-bottom:1px solid var(--paper-line);
+      transform:translateY(-120%);
+      transition:transform 0.3s ease;
+    }
+    nav.links.open{ transform:translateY(0); }
+    .nav-toggle{
+      display:flex; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:8px;
+    }
+    .nav-toggle span{ width:22px; height:2px; background:var(--ink); }
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <a href="#top" class="brand">
+      <span class="seal">JJ</span>
+      Cáceres Acosta
+    </a>
+    <nav class="links" id="navLinks">
+      <a href="#sobre-mi">Sobre mí</a>
+      <a href="#habilidades">Habilidades</a>
+      <a href="#proyectos">Proyectos</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">Portafolio · 2026</div>
+        <h1 class="name">Jerimy Joaquín<br>Cáceres Acosta</h1>
+        <div class="role">Desarrollador Web</div>
+        <p class="tagline">
+          Construyo páginas web con la misma precisión con la que se cuadra un balance:
+          cada línea en su lugar. <em>Y sí, también soy guapo.</em>
+        </p>
+        <div class="hero-actions">
+          <a href="#proyectos" class="btn btn-primary">Ver proyectos →</a>
+          <a href="#contacto" class="btn btn-ghost">Contactarme</a>
+        </div>
+      </div>
+
+      <div class="ledger-card">
+        <div class="lc-head">
+          <span>registro.log</span>
+          <div class="lc-dots"><span></span><span></span><span></span></div>
+        </div>
+        <div class="lc-body" id="ledgerBody">
+          <!-- filled by JS typing effect -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="sobre-mi">
+    <div class="wrap about-grid reveal">
+      <div>
+        <div class="stamp-figure">
+          <div class="stamp-text">
+            <b>JJC</b>
+            <span>Verificado · Sello personal</span>
+          </div>
+        </div>
+      </div>
+      <div class="about-text">
+        <div class="section-head" style="margin-bottom:24px;">
+          <span class="section-num">01</span>
+          <h2 class="section-title">Sobre mí</h2>
+          <div class="section-rule"></div>
+        </div>
+        <p>
+          Soy <strong>Jerimy Joaquín Cáceres Acosta</strong>, desarrollador web con una mirada
+          poco común: además de construir sitios, entiendo de <strong>contabilidad</strong>.
+          Esa mezcla me da un ojo distinto para proyectos donde la precisión y el orden importan
+          tanto como el diseño.
+        </p>
+        <p>
+          Me gusta que cada proyecto quede tan claro como un balance bien hecho: sin cabos
+          sueltos, sin cuentas que no cuadran.
+        </p>
+        <p class="margin-note">"Nota al margen: todo proyecto que entrego, cierra."</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="habilidades">
+    <div class="wrap reveal">
+      <div class="section-head">
+        <span class="section-num">02</span>
+        <h2 class="section-title">Habilidades</h2>
+        <div class="section-rule"></div>
+      </div>
+
+      <div class="ledger-table" id="skillsTable">
+        <div class="ledger-col">
+          <div class="ledger-col-head"><span>Desarrollo</span><span>Nivel</span></div>
+          <div class="skill-row dev" data-level="90"><span>HTML &amp; CSS</span><div class="bar"><i></i></div></div>
+          <div class="skill-row dev" data-level="80"><span>JavaScript</span><div class="bar"><i></i></div></div>
+          <div class="skill-row dev" data-level="75"><span>Diseño responsivo</span><div class="bar"><i></i></div></div>
+          <div class="skill-row dev" data-level="70"><span>Git &amp; GitHub</span><div class="bar"><i></i></div></div>
+        </div>
+        <div class="ledger-col">
+          <div class="ledger-col-head"><span>Contabilidad</span><span>Nivel</span></div>
+          <div class="skill-row" data-level="85"><span>Registro contable</span><div class="bar"><i></i></div></div>
+          <div class="skill-row" data-level="80"><span>Estados financieros</span><div class="bar"><i></i></div></div>
+          <div class="skill-row" data-level="75"><span>Excel avanzado</span><div class="bar"><i></i></div></div>
+          <div class="skill-row" data-level="70"><span>Conciliaciones</span><div class="bar"><i></i></div></div>
+        </div>
+      </div>
+      <p style="margin-top:14px; font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--ink-soft);">
+        * Niveles de referencia — ajústalos a tu criterio.
+      </p>
+    </div>
+  </section>
+
+  <section id="proyectos">
+    <div class="wrap reveal">
+      <div class="section-head">
+        <span class="section-num">03</span>
+        <h2 class="section-title">Proyectos</h2>
+        <div class="section-rule"></div>
+      </div>
+
+      <div class="projects-grid">
+        <article class="project-card">
+          <span class="project-index">01</span>
+          <h3>Mano Amiga</h3>
+          <p>Sitio web desarrollado para ayudar a los principiantes a entenderle a la contabilidad.</p>
+          <a class="project-link" href="https://github.com/jeremy983" target="_blank" rel="noopener">
+            Ver en GitHub <span class="arrow">→</span>
+          </a>
+        </article>
+
+        <article class="project-card">
+          <span class="project-index">02</span>
+          <h3>Clínica Dental</h3>
+          <p>Página web para una clínica dental, pensada para presentar servicios y facilitar el contacto con pacientes.</p>
+          <a class="project-link" href="https://github.com/jeremy983/clinica-dental20" target="_blank" rel="noopener">
+            Ver en GitHub <span class="arrow">→</span>
+          </a>
+        </article>
+
+        <article class="project-card">
+          <span class="project-index">03</span>
+          <h3>Centro Digital Aduanero</h3>
+          <p>Plataforma web enfocada en trámites y gestión de servicios aduaneros de forma digital.</p>
+          <a class="project-link" href="https://github.com/jeremy983/Centro-Digital-Aduanero" target="_blank" rel="noopener">
+            Ver repositorio <span class="arrow">→</span>
+          </a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacto">
+    <div class="wrap reveal">
+      <div class="contact-card">
+        <div>
+          <h2>Hablemos de tu próximo proyecto</h2>
+          <p>Ya sea un sitio web nuevo o un sistema que necesita orden, con gusto lo revisamos juntos.</p>
+        </div>
+        <div class="contact-list">
+          <div class="contact-item">
+            <span class="k">GitHub</span>
+            <a href="https://github.com/jeremy983" target="_blank" rel="noopener">github.com/jeremy983 →</a>
+          </div>
+          <div class="contact-item">
+            <span class="k">Email</span>
+            <a href="mailto:tu-correo@ejemplo.com">caceresacostaj212@gmail.com →</a>
+          </div>
+          <div class="contact-item">
+            <span class="k">Disponibilidad</span>
+            <span>Abierto a proyectos</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap" style="display:flex; justify-content:space-between; width:100%; flex-wrap:wrap; gap:12px;">
+    <span>© 2026 Jerimy Joaquín Cáceres Acosta</span>
+    <span>Cierre de libro · Portafolio v1.0</span>
+  </div>
+</footer>
+
+<script>
+  // Mobile nav toggle
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+    const expanded = navLinks.classList.contains('open');
+    navToggle.setAttribute('aria-expanded', expanded);
+  });
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => navLinks.classList.remove('open'));
+  });
+
+  // Typing effect in hero ledger card
+  const entries = [
+    ['nombre', 'Jerimy J. Cáceres A.'],
+    ['rol', 'Desarrollador Web'],
+    ['stack', 'HTML · CSS · JavaScript'],
+    ['extra', 'Contabilidad'],
+    ['estado', 'Disponible']
+  ];
+  const ledgerBody = document.getElementById('ledgerBody');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function renderStatic(){
+    ledgerBody.innerHTML = entries.map(([k,v]) =>
+      `<div class="lc-row"><span class="k">${k}</span><span class="v">${v}</span></div>`
+    ).join('');
+  }
+
+  if (reduceMotion){
+    renderStatic();
+  } else {
+    let i = 0;
+    function typeNext(){
+      if (i >= entries.length){
+        const last = ledgerBody.lastElementChild;
+        if (last) last.querySelector('.v').insertAdjacentHTML('beforeend', '<span class="cursor"></span>');
+        return;
+      }
+      const [k, v] = entries[i];
+      const row = document.createElement('div');
+      row.className = 'lc-row';
+      row.innerHTML = `<span class="k">${k}</span><span class="v"></span>`;
+      ledgerBody.appendChild(row);
+      const valEl = row.querySelector('.v');
+      let c = 0;
+      const iv = setInterval(() => {
+        valEl.textContent = v.slice(0, c+1);
+        c++;
+        if (c >= v.length){
+          clearInterval(iv);
+          i++;
+          setTimeout(typeNext, 180);
+        }
+      }, 28);
+    }
+    typeNext();
+  }
+
+  // Reveal on scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window && !reduceMotion){
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting){
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach(el => io.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('in'));
+  }
+
+  // Skill bars fill on scroll into view
+  const skillRows = document.querySelectorAll('.skill-row');
+  if ('IntersectionObserver' in window){
+    const skillIO = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting){
+          const bar = e.target.querySelector('.bar i');
+          const level = e.target.getAttribute('data-level');
+          bar.style.width = level + '%';
+          skillIO.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.4 });
+    skillRows.forEach(el => skillIO.observe(el));
+  } else {
+    skillRows.forEach(el => {
+      el.querySelector('.bar i').style.width = el.getAttribute('data-level') + '%';
+    });
+  }
+</script>
+
+</body>
+</html>
